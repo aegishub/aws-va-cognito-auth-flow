@@ -48,7 +48,8 @@ Betefits:
 
 ## Authentication flow scheme
 ![Authentication flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/auth_flow.png)
-Code of diagram - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/auth_flow_diagram_code.txt
+
+`Code of diagram` - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/auth_flow_diagram_code.txt
 
 
 ## Step-by-Step Flow
@@ -130,12 +131,12 @@ These function implemented though Nginx routes + FastAPI Auth backend server.
 termination of TLS traffic occurs on the Load balancer level, so Nginx doesn’t use double TLS termination. It is also possible use the k8S Ingres in front of the Nginx.
 
 ![Web application configuration](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webapp_components.png)
-Code of diagram - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webapp_components.txt
+`Code of diagram` - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webapp_components.txt
 
 ## Authentication backend Flow
 
 Authentication process in Web application and relationships between Web app components
 ![Authentication backend Flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.png)
-Code of diagram - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.txt
+`Code of diagram` - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.txt
 
 
