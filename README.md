@@ -159,7 +159,7 @@ This is the main config where we described all necessary routes for Auth backend
 > You can supplement these routes depending on the function of your application.
 > You can also define Nginx config in one sigle file, it is up to you.
 
-
+---
 ## Auth backend
 > Auth backend implemented in the form of Fast API application based on on python code.
 It works as systemd service.
@@ -200,7 +200,31 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 | `x-amzn-ava-user-context` | Issued by AWS Verified Access. Contains additional user context information for authorization. Used to validate the user's access to the application. It is a supplemental verification, helps to avoid compromising requests that did not come through Verified Access. | Decoded using Verified Access's JWKS public keys.  <br> Verification for this token:  <br> • `additional_user_context` (ensures the field exists) <br> • `exp` (ensures the token is not expired) <br> • `signer` (matches the expected Verified Access signer) |
 | Cookies (`id_token`, `access_token`) | Stored in the browser as `HTTP only` and `secure=True` cookies.  <br> Used for maintaining user authentication and authorization state across requests.                                                                                    | Retrieved and validated during `/auth/verify` and other protected routes. Validations are the same as those performed for `id_token` and `access_token`.                                                              |
 
-.
+**ID token**
+`Header
+{
+  "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
+  "alg": "RS256"
+}
+
+Payload
+{
+  "at_hash": "9-_JzdWbZ4q6rFUcel1zPw",
+  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "cognito:groups": [
+    "BO_users_Project_operators",
+    "BO_users_Project_admins"
+  ],
+  "email_verified": true,
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+  "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "aud": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+  "token_use": "id",
+  "auth_time": 1748859346,
+  "exp": 1748888146,
+  "iat": 1748859346,
+  "email": "zelkoalex@gmail.com"
+}`
 
 
 
