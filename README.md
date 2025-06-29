@@ -175,10 +175,9 @@ This is the main config where we described all necessary routes for Auth backend
 
 ---
 ## Auth backend
-> Auth backend implemented in the form of Fast API application based on on python code.
-It works as systemd service.
-Auth backend code - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
-Auth bakcend systemd config - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth-backend.service
+> Auth backend implemented in the form of Fast API application based on on python code. It works as systemd service.
+> Auth backend code - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
+> Auth bakcend systemd config - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth-backend.service
 
 
 ### Main functions
