@@ -206,7 +206,6 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
   "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
   "alg": "RS256"
 }
-
 Payload
 {
   "at_hash": "9-_JzdWbZ4q6rFUcel1zEd",
