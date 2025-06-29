@@ -35,7 +35,7 @@ Betefits:
 ![Solution scheme](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/Solution-scheme.jpg)
 
 **Components:**
-1. AWS EC2 instance for Web App (t2.micro)
+1. AWS EC2 instance for Web App (`t2.micro`)
 2. Web App (simulates basic Auth requests)
 - Nginx web server 
 - Fast API auth backend (python)
@@ -48,6 +48,7 @@ Betefits:
 
 ## Authentication flow scheme
 ![Authentication flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/auth_flow.png)
+Code of diagram - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/auth_flow_diagram_code.txt
 
 
 ## Step-by-Step Flow
@@ -56,7 +57,7 @@ Betefits:
 
 - User navigates to: https://test.my-site.com
 - Cloudflare resolves the domain and proxies the request to the Verified Access endpoint
-test.edge-xxxx.vai-xxxx.prod.verified-access.eu-central-1.amazonaws.com
+`test.edge-xxxx.vai-xxxx.prod.verified-access.eu-central-1.amazonaws.com`
 
 ### 2. AWS Verified Access Intercepts and Authenticates
 
@@ -77,18 +78,17 @@ test.edge-xxxx.vai-xxxx.prod.verified-access.eu-central-1.amazonaws.com
 - It then:
   Establishes a secure session
   Sets cookies (containing the Cognito tokens)
-  Forwards the original request to the backend (your Web Application), including:
-  x-amzn-ava-user-context HTTP header with signed user context.
+  Forwards the original request to the backend (your Web Application), including: `x-amzn-ava-user-context` HTTP header with signed user context.
 
 ### 5. Verified Access Redirects to Web Application
 
 - Verified Access completes authentication with a redirect to Web Application root directory (/) endpoint https://test.my-site.com
 - However, since Web Application also configured to use Cognito for authentication, it checks for its own session or authentication tokens related to the user. Finding none, it redirects the user to Cognito's authorization endpoint to initiate the OAuth Authorization Code Grant flow. https://eu-central-1_abracadabra.auth.eu-central-1.amazoncognito.com/login
-  In addition Web Application validate VA header x-amzn-ava-user-context
+  In addition Web Application validate VA header `x-amzn-ava-user-context`
 
 - But Cognito recognize that user already authenticated and have existing user session (based on Cognito user session cookies received during VA authentication) and immediately redirects the user back to the Web Application's callback URL with an authorization code. User don’t pass the Login sessions again.
 
-> All further communication occurs through the internal network, requests are tunneled between the VA instance and the internal load balancer through which the web application is published. All requests are supplemented with VA session cookies + x-amzn-ava-user-context HTTP header. The head can be validated on the backend, additionally making sure that the user is authorized on the VA.
+> All further communication occurs through the internal network, requests are tunneled between the VA instance and the internal load balancer through which the web application is published. All requests are supplemented with VA session cookies + `x-amzn-ava-user-context` HTTP header. The head can be validated on the backend, additionally making sure that the user is authorized on the VA.
 
 
 ### The Web Application receives the request at /callback.
@@ -96,18 +96,18 @@ https://test.my-site.com/callback
 
 - It extracts the authorization code from the query parameter.
 - It exchanges the code for tokens at:
-'POST https://eu-central-1_abracadabra.auth.eu-central-1.amazoncognito.com/oauth2/token'
+`POST https://eu-central-1_abracadabra.auth.eu-central-1.amazoncognito.com/oauth2/token`
 - Tokens obtained:
-  'id_token' (JWT)
-  'access_token' (JWT)
-  (Optional) refresh_token
+  `id_token` (JWT)
+  `access_token` (JWT)
+  (Optional) `refresh_token`(JWT)
 - Tokens are stored (typically in cookies), and the user is now authenticated inside the Web App.
 
 ### User is Fully Authenticated in the Web Application
 
 - With the token exchange complete, the Web Application now establishes its own session for the user.
 - The application can now:
-  - Use claims in the ID/Access token for user identity and roles.
+  - Use claims in the id/access token for user identity and roles.
   - Authorize access to specific group membership.
 - Subsequent requests to the Web Application are served as authenticated.
 
@@ -120,5 +120,22 @@ https://test.my-site.com/signout
 https://eu-central-1_abracadabra.auth.eu-central-1.amazoncognito.com/logout?client_id=...&logout_uri=https://test.my-site.com/signout/complete
 - Cognito logs user out and redirects to Cognito Login page
 
+## Web application configuration
+
+Web application developed for demonstration purposes. 
+It shows the way of implementation OAuth client functions to support Cognito IdP auth flow.
+These function implemented though Nginx routes + FastAPI Auth backend server.
+
+> Nginx listen on HTTP 80 port.
+termination of TLS traffic occurs on the Load balancer level, so Nginx doesn’t use double TLS termination. It is also possible use the k8S Ingres in front of the Nginx.
+
+![Web application configuration](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webapp_components.png)
+Code of diagram - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webapp_components.txt
+
+## Authentication backend Flow
+
+Authentication process in Web application and relationships between Web app components
+![Authentication backend Flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.png)
+Code of diagram - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.txt
 
 
