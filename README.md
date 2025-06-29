@@ -201,7 +201,7 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 | Cookies (`id_token`, `access_token`) | Stored in the browser as `HTTP only` and `secure=True` cookies.  <br> Used for maintaining user authentication and authorization state across requests.                                                                                    | Retrieved and validated during `/auth/verify` and other protected routes. Validations are the same as those performed for `id_token` and `access_token`.                                                              |
 
 **ID token**
-<pre> ```Header
+<pre> `Header
 {
   "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
   "alg": "RS256"
@@ -223,7 +223,7 @@ Payload
   "exp": 1748888146,
   "iat": 1748859346,
   "email": "user@gmail.com"
-} ``` </pre>
+} ` </pre>
 
 
 
