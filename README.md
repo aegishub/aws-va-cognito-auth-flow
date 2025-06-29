@@ -139,6 +139,7 @@ Authentication process in Web application and relationships between Web app comp
 ![Authentication backend Flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.png)
 `Code of diagram` - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.txt
 
+
 ## Nginx routes
 
 Nginx have the endpoint definition to route traffic to Auth backend.
@@ -158,11 +159,13 @@ This is the main config where we described all necessary routes for Auth backend
 > You can supplement these routes depending on the function of your application.
 > You can also define Nginx config in one sigle file, it is up to you.
 
+
 ## Auth backend
 > Auth backend implemented in the form of Fast API application based on on python code.
 It works as systemd service.
 Auth backend code - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
 Auth bakcend systemd config - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth-backend.service
+
 
 ### Main functions
 These are the main functions that must be implemented for proper operation of OAuth 2.0 client.
@@ -186,8 +189,34 @@ It is critical to implement all necessary key checks and verification
 | `signout`                     | Handles user signout by redirecting to Cognito's logout endpoint and deleting cookies (id_token, access_token).|
 | `home`                        | A simple endpoint that returns a welcome message for the FastAPI backend. |
 
-s
 
+#### Auth tokens
+
+When user authenticated Cognito generate 2 tokens - id_token + access_token.
+These are JWT tokens, stored in a cookes. Pay attention to all tokens verification that should be performed on the backend. 
+| Token/Header                  | Purpose                                                | Validations Performed                                        |
+|-------------------------------|--------------------------------------------------------|--------------------------------------------------------------|
+| `id_token`                    | Issued by Cognito after user authentication. Contains user identity information (e.g., username, email, claims). Used for identifying the authenticated user in the application.| Decoded using Cognito's JWKS public keys. 
+Verification for this token:
+- exp (ensures the token is not expired), 
+- aud (matches the CLIENT_ID), 
+- issuer (matches the Cognito issuer URL).
+- digital signatures of token
+- at_hash validation (specific hash that validate access token based on hash in id_token)|
+| `access_token`                | Issued by Cognito after user authentication. Used for authorising API requests. Contains permissions and scopes for accessing protected resources.| Decoded using Cognito's JWKS public keys. 
+Verification for this token:
+- exp (ensures the token is not expired), 
+- aud (matches the CLIENT_ID), 
+- issuer (matches the Cognito issuer URL).
+- digital signatures of token |
+| `x-amzn-ava-user-context`     | Issued by AWS Verified Access. Contains additional user context information for authorization. Used to validate the user's access to the application. It is a supplement verification, helps to avoid compromising requests that did not come through the Verified Access. | Decoded using Verified Access's JWKS public keys. 
+Verification for this token: 
+- additional_user_context (ensures the field exists)
+- exp (ensures the token is not expired)
+- signer (matches the expected Verified Access signer).|
+| Cookies (`id_token, access_token`) | Stored in the browser as `HTTP only` and `secure=True` cookies Used for maintaining user authentication and authorization state across requests. | Retrieved and validated during /auth/verify and other protected routes. Validations are the same as those performed for id_token and access_token. |
+
+.
 
 
 
