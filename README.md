@@ -282,11 +282,11 @@ Payload
     "aud": "2q3xxxxxxxxxxxxxxxxxx",
     "auth_time": 1748859336,
     "cognito:groups": [
-      "BO_users_Project_operators",
-      "BO_users_Project_admins"
+      "webapp_users_project_operators",
+      "webapp_users_project_admins"
     ],
     "cognito:username": "0325b8a2-f0e1-7043-2242-8c04d6b58039",
-    "email": "zelkoalex@gmail.com",
+    "email": "user@gmail.com",
     "email_verified": true,
     "event_id": "2f0f4c58-e498-4439-a172-67db6171ec11",
     "exp": 1748888136,
@@ -297,8 +297,8 @@ Payload
   },
   "email": "user@gmail.com",
   "email_verified": "true",
-  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
-  "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"
+  "sub": "0325b8a2-f0e1-7043-2242-8c04d6b58039",
+  "username": "0325b8a2-f0e1-7043-2242-8c04d6b58039"
 }'</pre>
 
 ## .env file
