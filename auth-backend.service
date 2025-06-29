@@ -1,0 +1,20 @@
+# /etc/systemd/system/auth-backend.service
+[Unit]
+Description=FastAPI Auth Backend
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/auth-backend
+EnvironmentFile=/opt/auth-backend/.env
+ExecStart=/usr/local/bin/uvicorn main:app --host 127.0.0.1 --port 4000
+Restart=always
+RestartSec=5
+ReadOnlyPaths=/etc/resolv.conf
+BindPaths=/etc/systemd/resolved-auth-backend/resolv.conf:/etc/resolv.conf
+Environment="http_proxy="
+Environment="https_proxy="
+
+[Install]
+WantedBy=multi-user.target
