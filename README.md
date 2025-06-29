@@ -139,4 +139,28 @@ Authentication process in Web application and relationships between Web app comp
 ![Authentication backend Flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.png)
 `Code of diagram` - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/webauth_flow_diagram.txt
 
+## Nginx routes
+
+Nginx should have the endpoint definition (routes) for Web application.
+
+| Route                | Description                                                                                                             |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `location /`         | All protected resources  <br> Checks for authorization; if not authorized, redirects to the login page for authorization. |
+| `location = /login`  | Requires the user to pass through Cognito authentication.                                                              |
+| `location = /auth/verify` | Handles verification of the user auth tokens, called by the `auth_request` directive in the `/` location block.  |
+| `location = /callback`    | Handles the response from Cognito after the user has logged in.                                                    |
+| `location = /signout`     | Handles the signout process.                                                                                        |
+
+This is a default Nginx config in /etc/nginx/nginx.conf - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/nginx.conf
+- Here we declare the the log format function only.
+
+This is the main config where we described all necessary routes for Auth backend to support OAuth client functions /etc/nginx/conf.d/main.conf
+> You can supplement these routes depending on the function of your application.
+> You can also define Nginx config in one sigle file, it is up to you.
+
+## Auth backend
+> Auth backend implemented in the form of Fast API application based on on python code.
+It works as systemd service.
+Auth bakcend code - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
+Auth bakcend systemd config -
 
