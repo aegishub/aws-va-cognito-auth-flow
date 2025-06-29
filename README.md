@@ -200,8 +200,10 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 | `x-amzn-ava-user-context` | Issued by AWS Verified Access. Contains additional user context information for authorization. Used to validate the user's access to the application. It is a supplemental verification, helps to avoid compromising requests that did not come through Verified Access. | Decoded using Verified Access's JWKS public keys.  <br> Verification for this token:  <br> • `additional_user_context` (ensures the field exists) <br> • `exp` (ensures the token is not expired) <br> • `signer` (matches the expected Verified Access signer) |
 | Cookies (`id_token`, `access_token`) | Stored in the browser as `HTTP only` and `secure=True` cookies.  <br> Used for maintaining user authentication and authorization state across requests.                                                                                    | Retrieved and validated during `/auth/verify` and other protected routes. Validations are the same as those performed for `id_token` and `access_token`.                                                              |
 
-**ID token**
-<pre>Header
+
+| **ID token**                          | **Access token**                               |
+|---------------------------------------|------------------------------------------------|
+| <pre>Header
 {
   "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
   "alg": "RS256"
@@ -223,7 +225,65 @@ Payload
   "exp": 1748888146,
   "iat": 1748859346,
   "email": "user@gmail.com"
-} </pre>
+} </pre> | <pre>Header
+{
+  "kid": "Gp/4AGoRD2T8JnmDvPi73T6CDsMfJWemb6EdxSfhhsk=",
+  "alg": "RS256"
+}
+Payload
+{
+  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "cognito:groups": [
+    "BO_users_Project_operators",
+    "BO_users_Project_admins"
+  ],
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+  "version": 2,
+  "client_id": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+  "token_use": "access",
+  "scope": "openid email",
+  "auth_time": 1748859346,
+  "exp": 1748888146,
+  "iat": 1748859346,
+  "jti": "3053e15d-9ce5-4e56-a6e2-f38d21b8983d",
+  "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"
+}</pre> |
 
+**x-amzn-ava-user-context header**
+<pre>Header
+ {
+  "typ": "JWT",
+  "kid": "8ded4a1f-131e-40be-83b1-fef49874a94b",
+  "alg": "ES384",
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+  "client": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+  "signer": "arn:aws:ec2:eu-central-1:748635571618:verified-access-instance/vai-09fb539346b9bcc06",
+  "exp": 1748859467
+}
+Payload
+{
+  "additional_user_context": {
+    "at_hash": "TnAoRo9N4EoA7p_PhNBb1w",
+    "aud": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+    "auth_time": 1748859336,
+    "cognito:groups": [
+      "BO_users_Project_operators",
+      "BO_users_Project_admins"
+    ],
+    "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+    "email": "zelkoalex@gmail.com",
+    "email_verified": true,
+    "event_id": "2f0f4c58-e498-4439-a172-67db6171ec11",
+    "exp": 1748888136,
+    "iat": 1748859336,
+    "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+    "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+    "token_use": "id"
+  },
+  "email": "zelkoalex@gmail.com",
+  "email_verified": "true",
+  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"
+}</pre>
 
 
