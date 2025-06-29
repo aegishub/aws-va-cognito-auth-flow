@@ -64,8 +64,8 @@ test.edge-xxxx.vai-xxxx.prod.verified-access.eu-central-1.amazonaws.com
 - If the user is not authenticated, it redirects the user to the Amazon Cognito Hosted UI (login screen).
 - User authenticates via Cognito (username/password, social login, etc.).
 - Cognito redirects back to Verified Access and with a session cookies + specific authorization header which Verified Access Endpoint check each time during user’s requests.
-  'AWSVAAuthSessionCookies' - Verified Access Session cookies.
-  'x-amzn-ava-user-context' - Verified Access JWT token (in the form of HTTP header, not in session cookies).
+  `AWSVAAuthSessionCookies` - Verified Access Session cookies.
+  `x-amzn-ava-user-context` - Verified Access JWT token (in the form of HTTP header, not in session cookies).
 
 ### 3. Verified Access check access policy
 
