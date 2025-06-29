@@ -1,0 +1,22 @@
+@startuml
+title Internal Load Balancer with TLS Termination and Web Application Components
+
+node "Internal Load Balancer" as lb {
+    [TLS Listener\n(HTTPS 443)] as tls
+    note right of tls
+        TLS termination occurs here
+        Incoming HTTPS traffic is decrypted
+        and forwarded internally over HTTP (port 80)
+    end note
+}
+
+node "Web Application" {
+    component "Nginx\n(port 80)" as nginx
+    component "Auth Backend\n(main.py via systemd)\n127.0.0.1:4000" as backend
+
+    nginx --> backend : Proxy requests\n(e.g. /callback, /login)
+}
+
+tls --> nginx : Forward HTTP traffic\n(port 80)
+
+@enduml
