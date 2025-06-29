@@ -20,6 +20,12 @@ Nginx and the FastAPI backend together simulate a typical web application.
 - [Authentication flow scheme](#authentication-flow-scheme)
 - [Step-by-Step Flow](#Step-by-Step-Flow)
 - [Web application configuration](#Web-application-configuration)
+- [Authentication backend Flow](#Authentication-backend-Flow)
+- [Nginx routes](#Nginx-routes)
+- [Main functions](#Main-functions)
+- [Auth tokens](#Auth-tokens)
+- [.env file](#.env-file)
+- [Code of application](#Code-of-application)
 
 ## Solution Features
 
@@ -296,8 +302,11 @@ Payload
   "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"
 }'</pre>
 
-**.env file of application** - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/.env
-**Code of application** - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
+## .env file
+https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/.env
+
+## Code of application
+https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
 
 
 
