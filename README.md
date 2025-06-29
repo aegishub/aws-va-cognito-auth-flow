@@ -229,7 +229,7 @@ Payload
     "webapp_users_project_admins"
   ],
   "email_verified": true,
-  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",
   "cognito:username": "0325b8a2-f0e1-7043-2242-8c04d6b58039",
   "aud": "2q3xxxxxxxxxxxxxxxxxx",
   "token_use": "id",
@@ -247,12 +247,12 @@ Payload
 }
 Payload
 {
-  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "sub": "0325b8a2-f0e1-7043-2242-8c04d6b58039",
   "cognito:groups": [
     "webapp_users_project_operators",
     "webapp_users_project_admins"
   ],
-  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",
   "version": 2,
   "client_id": "2q3xxxxxxxxxxxxxxxxxx",
   "token_use": "access",
@@ -261,7 +261,7 @@ Payload
   "exp": 1748888146,
   "iat": 1748859346,
   "jti": "3053e15d-9ce5-4e56-a6e2-f38d21b8983d",
-  "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"
+  "username": "0325b8a2-f0e1-7043-2242-8c04d6b58039"
 }`</pre>
 
 **x-amzn-ava-user-context header**
@@ -270,32 +270,32 @@ Payload
   "typ": "JWT",
   "kid": "8ded4a1f-131e-40be-83b1-fef49874a94b",
   "alg": "ES384",
-  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
-  "client": "2q3m5ppkkvoc7bis8mfpm4g8gm",
-  "signer": "arn:aws:ec2:eu-central-1:748635571618:verified-access-instance/vai-09fb539346b9bcc06",
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",
+  "client": "2q3xxxxxxxxxxxxxxxxxx",
+  "signer": "arn:aws:ec2:eu-central-1:458672271618:verified-access-instance/vai-06fb539346b9bcc06",
   "exp": 1748859467
 }
 Payload
 {
   "additional_user_context": {
     "at_hash": "TnAoRo9N4EoA7p_PhNBb1w",
-    "aud": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+    "aud": "2q3xxxxxxxxxxxxxxxxxx",
     "auth_time": 1748859336,
     "cognito:groups": [
       "BO_users_Project_operators",
       "BO_users_Project_admins"
     ],
-    "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+    "cognito:username": "0325b8a2-f0e1-7043-2242-8c04d6b58039",
     "email": "zelkoalex@gmail.com",
     "email_verified": true,
     "event_id": "2f0f4c58-e498-4439-a172-67db6171ec11",
     "exp": 1748888136,
     "iat": 1748859336,
-    "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
-    "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+    "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",
+    "sub": "0325b8a2-f0e1-7043-2242-8c04d6b58039",
     "token_use": "id"
   },
-  "email": "zelkoalex@gmail.com",
+  "email": "user@gmail.com",
   "email_verified": "true",
   "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
   "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"
