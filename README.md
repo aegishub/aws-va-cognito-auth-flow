@@ -18,6 +18,8 @@ Nginx and the FastAPI backend together simulate a typical web application.
 - [Solution Feature](#Solution-Features)
 - [The solution diagram](#The-solution-diagram)
 - [Authentication flow scheme](#authentication-flow-scheme)
+- [Step-by-Step Flow](#Step-by-Step-Flow)
+- [Web application configuration](#Web-application-configuration)
 
 ## Solution Features
 
