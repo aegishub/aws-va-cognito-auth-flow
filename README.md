@@ -141,7 +141,7 @@ Authentication process in Web application and relationships between Web app comp
 
 ## Nginx routes
 
-Nginx should have the endpoint definition (routes) for Web application.
+Nginx have the endpoint definition to route traffic to Auth backend.
 
 | Route                      | Description                                                                                                             |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------|
@@ -161,6 +161,33 @@ This is the main config where we described all necessary routes for Auth backend
 ## Auth backend
 > Auth backend implemented in the form of Fast API application based on on python code.
 It works as systemd service.
-Auth bakcend code - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
-Auth bakcend systemd config - 
+Auth backend code - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth_backend.py
+Auth bakcend systemd config - https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/auth-backend.service
+
+### Main functions
+These are the main functions that must be implemented for proper operation of OAuth 2.0 client.
+It is critical to implement all necessary key checks and verification
+
+| Function                      | Description                                                                                                             |
+|-------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `verify`                      | Verifies the id_token and access_token from cookies. Decodes and validates the tokens, checks expiration times, and returns the verified user information.|
+| `callback`                    | Handles the Cognito callback after user authentication. Exchanges the authorization code for tokens, validates the tokens, sets cookies (id_token, access_token), and redirects the user to the home page.|
+| `exchange_code_for_token`     | Exchanges an authorization code for tokens (id_token, access_token, refresh_token) by making a POST request to Cognito's token endpoint.|
+| `verify_amzn_context`         | Middleware that validates the x-amzn-ava-user-context header from Verified Access. If the header is missing or invalid, it raises a 403 Forbidden error.|
+| `decode_jwt`                  | Decodes and validates a JWT token using the public key from Cognito's JWKS endpoint. Checks claims such as exp (expiration time) and optionally verifies the at_hash claim.|
+| `verify_at_hash`              | Verifies the at_hash claim in the id_token by calculating the hash of the access_token and comparing it to the at_hash value in the token.|
+| `http_exception_handler`      | Handles HTTPException errors, logs the status code and error details, and returns a JSON response with the error information.|
+| `general_exception_handler`   | Handles general exceptions, logs the error details, and returns a JSON response with a generic "Internal Server Error" message.|
+| `get_public_keys`        | Fetches the public keys from Cognito's JWKS endpoint for verifying JWT tokens.                                                |
+| `get_verified_access_keys`    | Fetches the public key from Verified Access's JWKS endpoint for validating Verified Access tokens.|
+| `validate_verified_access_token` | Validates the Verified Access token by decoding it using the public key from Verified Access's JWKS endpoint. Checks claims such as additional_user_context and exp.|
+| `start_login`                 | Redirects the user to Cognito's Hosted UI for login by generating the login URL with required parameters (client_id, response_type, scope, redirect_uri).|
+| `health_check`                | A simple health check endpoint that returns {"status": "ok"}.|
+| `signout`                     | Handles user signout by redirecting to Cognito's logout endpoint and deleting cookies (id_token, access_token).|
+| `home`                        | A simple endpoint that returns a welcome message for the FastAPI backend. |
+
+s
+
+
+
 
