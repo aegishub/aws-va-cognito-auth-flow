@@ -202,7 +202,7 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 
 
 **ID token**
-<per>`Header
+<pre>`Header
 {
   "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
   "alg": "RS256"
@@ -224,7 +224,7 @@ Payload
   "exp": 1748888146,
   "iat": 1748859346,
   "email": "zelkoalex@gmail.com"
-}`</per>
+}`</pre>
 
 
 
