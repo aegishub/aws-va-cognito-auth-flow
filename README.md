@@ -32,8 +32,24 @@ Betefits:
 
 ## The solution diagram
 
-![Solution scheme](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/Solution-scheme.jpg)
+![Solution scheme](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/Solution-scheme.jpg)
 
-s
+**Components:**
+1. AWS EC2 instance for Web App (t2.micro)
+2. Web App (simulates basic Auth requests)
+- Nginx web server 
+- Fast API auth backend (python)
+3. AWS Internal Load balancer (with TLS termination)
+4. AWS Cognito (one User pool)
+5. AWS Verified Access for Web App publication (with authentication in the same Cognito User Pool)
+6. AWS Certificate manager for domain test.my-site.com with DNS validation (the domain name is fictitious, but should have real DNS name that you own)
+7. Cloudflare DNS records for test.my-site.com (Proxy mode)
+
+
+## Authentication flow scheme
+![Authentication flow](https://github.com/aegishub/aws-va-cognito-auth-flow/blob/main/images/auth_flow.png)
+
+
+
 
 
