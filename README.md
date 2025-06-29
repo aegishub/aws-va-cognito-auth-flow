@@ -201,8 +201,30 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 | Cookies (`id_token`, `access_token`) | Stored in the browser as `HTTP only` and `secure=True` cookies.  <br> Used for maintaining user authentication and authorization state across requests.                                                                                    | Retrieved and validated during `/auth/verify` and other protected routes. Validations are the same as those performed for `id_token` and `access_token`.                                                              |
 
 
-| **x-amzn-ava-user-context Header** | **Access Token** | **ID Token** |
-|-------------------------------------|------------------|---------------|
-| ```json<br>{<br>  "typ": "JWT",<br>  "kid": "8ded4a1f-131e-40be-83b1-fef49874a94b",<br>  "alg": "ES384",<br>  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",<br>  "client": "2q3xxxxxxxxxxxxxxxxxx",<br>  "signer": "arn:aws:ec2:eu-central-1:748635571618:verified-access-instance/vai-09fb53...",<br>  "exp": 1748859467<br>}<br><br>Payload<br>{<br>  "additional_user_context": {<br>    "at_hash": "TnAoRoN9vAEoA7p_PhNBb1w",<br>    "aud": "2q3xxxxxxxxxxxxxxxxxx",<br>    "auth_time": 1748859336,<br>    "cognito:groups": [<br>      "webapp_users_project_operators",<br>      "webapp_users_project_admins"<br>    ],<br>    "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",<br>    "email": "гuser@gmail.com",<br>    "email_verified": true,<br>    "event_id": "2f0f4c5e-e498-4439-a172-67db6171ec11",<br>    "exp": 1748888136,<br>    "iat": 1748859336,<br>    "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",<br>    "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",<br>    "token_use": "id"<br>  },<br>  "email": "гuser@gmail.com",<br>  "email_verified": "true",<br>  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",<br>  "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"<br>} ``` | ```json<br>{<br>  "kid": "Gp/4AGoRD2T8JnmDvPi73T6CDsMfJWemb6EdxSfhhsk=",<br>  "alg": "RS256"<br>}<br><br>Payload<br>{<br>  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",<br>  "cognito:groups": [<br>    "webapp_users_project_operators",<br>    "webapp_users_project_admins"<br>  ],<br>  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",<br>  "version": 2,<br>  "client_id": "2q3xxxxxxxxxxxxxxxxxx",<br>  "token_use": "access",<br>  "scope": "openid email",<br>  "auth_time": 1748859346,<br>  "exp": 1748888146,<br>  "iat": 1748859346,<br>  "jti": "3035e15d-9ce5-4e56-a6e2-f38d21b8983d",<br>  "username": "0324b8a2-f0e1-7043-2242-8c04d6b58039"<br>} ``` | ```json<br>{<br>  "kid": "yh2ku1NwY7z1BCeWBJPHF2YzyZ6ihKtL4igtxS7YeCs=",<br>  "alg": "RS256"<br>}<br><br>Payload<br>{<br>  "at_hash": "9~_JzdWbZ4q6zFUcel1zPw",<br>  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",<br>  "cognito:groups": [<br>    "webapp_users_project_operators",<br>    "webapp_users_project_admins"<br>  ],<br>  "email_verified": true,<br>  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",<br>  "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",<br>  "aud": "2q3xxxxxxxxxxxxxxxxxx",<br>  "token_use": "id",<br>  "auth_time": 1748859346,<br>  "exp": 1748888146,<br>  "iat": 1748859346,<br>  "email": "гuser@gmail.com"<br>} ``` |
+**ID token**
+<per>Header
+{
+  "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
+  "alg": "RS256"
+}
+Payload
+{
+  "at_hash": "9-_JzdWbZ4q6rFUcel1zPw",
+  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "cognito:groups": [
+    "BO_users_Project_operators",
+    "BO_users_Project_admins"
+  ],
+  "email_verified": true,
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
+  "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "aud": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+  "token_use": "id",
+  "auth_time": 1748859346,
+  "exp": 1748888146,
+  "iat": 1748859346,
+  "email": "zelkoalex@gmail.com"
+}</per>
+
 
 
