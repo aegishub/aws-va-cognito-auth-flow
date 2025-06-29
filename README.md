@@ -201,7 +201,7 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 | Cookies (`id_token`, `access_token`) | Stored in the browser as `HTTP only` and `secure=True` cookies.  <br> Used for maintaining user authentication and authorization state across requests.                                                                                    | Retrieved and validated during `/auth/verify` and other protected routes. Validations are the same as those performed for `id_token` and `access_token`.                                                              |
 
 **ID token**
-`Header
+<pre> ```Header
 {
   "kid": "yh2kulNwY7z1BCeWbJPHF2YzyZ6ihKtL4igtxS7YeCs=",
   "alg": "RS256"
@@ -209,22 +209,22 @@ These are JWT tokens, stored in a cookes. Pay attention to all tokens verificati
 
 Payload
 {
-  "at_hash": "9-_JzdWbZ4q6rFUcel1zPw",
-  "sub": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
+  "at_hash": "9-_JzdWbZ4q6rFUcel1zEd",
+  "sub": "0345b8a2-f0e1-7043-2242-8c04d6b58039",
   "cognito:groups": [
-    "BO_users_Project_operators",
-    "BO_users_Project_admins"
+    "webapp_users_project_operators",
+    "webapp_users_project_admins"
   ],
   "email_verified": true,
-  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_ukcGcV1yu",
-  "cognito:username": "0324b8a2-f0e1-7043-2242-8c04d6b58039",
-  "aud": "2q3m5ppkkvoc7bis8mfpm4g8gm",
+  "iss": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_abracadabra",
+  "cognito:username": "0345b8a2-f0e1-7043-2242-8c04d6b58039",
+  "aud": "2q3xxxxxxxxxxxxxxxxxx",
   "token_use": "id",
   "auth_time": 1748859346,
   "exp": 1748888146,
   "iat": 1748859346,
-  "email": "zelkoalex@gmail.com"
-}`
+  "email": "user@gmail.com"
+} ``` </pre>
 
 
 
