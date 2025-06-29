@@ -13,3 +13,21 @@
 - The FastAPI backend is an authentication backend that processes all authentication requests.
 Nginx and the FastAPI backend together simulate a typical web application.
 
+Betefits:
+
+| Feature                    | Description                                                                                                      |
+|----------------------------|------------------------------------------------------------------------------------------------------------------|
+| No VPN                     | User path through secure authentication process with strict access controls.                                     |
+| Seamless authentication    | Allows users to authenticate once on the *Verified Access* and get authorization to access the web application (specific backend configuration required). |
+| Centralised user pool + external Identity provider | Google, Facebook, Apple. SAML, OIDC.                                                                       |
+| Password policy            | Complexity, Temporary passwords, password self-service                                                                                   |
+| MFA                        | Authentication App, Email, Phone                                                                                 |
+| Custom user attributes     | Set any attributes for auth tokens                                                                               |
+| User account recovery      | Self-service recovery                                                                                            |
+| User session management    | Manage session token lifetime                                                                                    |
+| SDK support                | Amazon Cognito Identity Provider SDK for Python, Java, etc.                                                      |
+| Extensions                 | Using Lambda functions:  <br> - Customize welcome messages and migrate users <br> - Customize tokens and log analytics events <br> - Custom challenges and responses for user sign-in, such as a CAPTCHA or a security question <br> - Customize email and SMS messages, senders, and localization |
+| User login page customization | HTML style configuration                                                                                   |
+| Logging                    | Log information about user connections and sessions.                                                              |
+
+
