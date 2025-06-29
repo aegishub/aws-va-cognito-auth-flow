@@ -1,0 +1,55 @@
+@startuml
+actor User
+participant "Nginx (Web App)" as NGINX
+participant "Auth Backend" as BACKEND
+participant "Cognito" as COGNITO
+
+== Start flow ==
+
+User -> NGINX: GET /
+note right of User: Open Web App
+note right of NGINX: All resources (/*) on Web App protected, Authorization required
+NGINX -> BACKEND: auth_request /auth/verify
+BACKEND -> BACKEND: Validate 'x-amzn-ava-user-context' header \n Check 'id_token' and 'access_token' cookies \n if missing - Unauthorized
+BACKEND -> NGINX: 401 Unauthorized
+NGINX -> User: 302 Redirect to /login
+
+User -> NGINX: GET /login
+NGINX -> BACKEND: proxy_pass /login
+BACKEND -> BACKEND: Validate 'x-amzn-ava-user-context' header
+BACKEND -> User: 302 Redirect to Cognito /login?redirect_uri...
+User -> COGNITO: Open Cognito login page (Hosted UI)
+COGNITO -> COGNITO: Check 'cognito' cookies \n (remains after authentication in Cognito on Verified Access) \nif missing - Submit credentials 
+COGNITO -> COGNITO: if 'cognito' cookies exist  - Redirect to \callback with Authorization CODE \n User do not see the Cognito login page
+User -> COGNITO: Submit credentials
+COGNITO -> COGNITO: Looking for Users in User pool + Check credentials \nGenerate Authorization CODE
+COGNITO -> User: 302 Redirect to /callback?code=xyz
+note right of User: Forward User with authorization CODE grant to NGINX/App
+
+User -> NGINX: GET /callback?code=xyz
+NGINX -> BACKEND: proxy_pass /callback?code=xyz
+BACKEND -> COGNITO: POST /oauth2/token
+note right of BACKEND: Exchange CODE for tokens
+COGNITO --> BACKEND: GET id_token + access_token
+
+BACKEND -> User: 302 Redirect to /  (with id_token + access_token)
+note right of User: Set-Cookie id_token, access_token
+
+User -> NGINX: GET /
+NGINX -> BACKEND: auth_request /auth/verify
+BACKEND -> BACKEND: Verifiy id_token + access_token
+BACKEND -> NGINX: 200 OK
+NGINX -> User: index.html
+
+== Logout flow ==
+
+User -> NGINX: GET /signout
+NGINX -> BACKEND: proxy_pass /signout
+BACKEND -> User: 302 Redirect to COGNITO /logout?client_id=...&logout_uri
+note right of User: Delete: id_token + access_token \nDelete 'x-amzn-ava-user-context' header \nDelete AWSVAAuthSessionCookie (VA specific cookies)
+
+User -> COGNITO: GET Cognito /logout
+COGNITO -> User: 302 Redirect to Cognito /login?redirect_uri...
+
+User -> COGNITO: Open Cognito login page (Hosted UI) to start new Auth process
+@enduml
