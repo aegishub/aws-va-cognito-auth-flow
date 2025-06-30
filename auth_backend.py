@@ -191,7 +191,7 @@ async def validate_verified_access_token(token: str):
         raise HTTPException(status_code=401, detail="Invalid Verified Access token header")
 
     # Отримання vai_id із `signer`
-    vai_id = signer.split("/")[-1]  # Витягуємо `vai-09fb539346b9bcc06`
+    vai_id = signer.split("/")[-1]  # Витягуємо verified-access instance id
 
     # Формування очікуваного `signer`
     expected_signer = VA_SIGNER.format(vai_id=vai_id)
